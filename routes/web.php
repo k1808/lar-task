@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\PostAdminController;
+use App\Http\Controllers\Admin\UserAdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(
+    [
+        'prefix' => 'admin',
+        'middleware' => ['auth'],
+    ], function () {
+    Route::get('/', [UserAdminController::class, 'index']);
+    Route::resource('post-admin', PostAdminController::class);
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
