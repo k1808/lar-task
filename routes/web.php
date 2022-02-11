@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PostAdminController;
 use App\Http\Controllers\Admin\UserAdminController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,9 +25,8 @@ Route::group(
     Route::resource('post-admin', PostAdminController::class);
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('/', PostController::class);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
